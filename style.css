@@ -22,27 +22,47 @@ html {
 .header-nav ul {
     list-style-type: none;
 }
-.header-nav ul li {
+.header-nav li {
     display: inline-block;
     padding: 7px;
 }
-.header-nav ul li a {
+.header-nav li a {
     text-decoration: none;
+    text-transform: uppercase;
     color: #4ea852;
+}
+.header-nav li a:hover,
+.header-nav li a:active {
+    color: #08f714;
 }
 
 .header-back-img {
-    width: 900px;
-    height: inherit;
+    margin-top: 10px;
+    width: 800px;
 }
 
 .poltea-heading {
     font-size: 200%;
+    text-transform: uppercase;
     color: #4ea852;
     position: absolute;
     width: 1140;
     top: 50%;
     left: 50%;
     transform: translate(-50%, -50%);
-
 }
+.poltea-heading p  {
+    font-size: 25px;
+}
+
+
+
+
+
+
+
+
+
+
+
+
