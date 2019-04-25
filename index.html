@@ -7,29 +7,257 @@
     <title>Document</title>
     <link rel="stylesheet" href="./style.css">
 </head>
-    <section id="heading-section">
-     <header>
+<body>  
+    <section>
+     <header class="header-section">
 
         <img src="./vote.png" alt="voting image" class="header-back-img">
         <nav class="header-nav">
             <ul>
-                <li><a href="#">sign up</a></li>
-                <li><a href="#">sign in</a></li>
-                <li><a href="#">parties</a></li>
-                <li><a href="#">mandates</a></li>
-                <li><a href="#">politicians</a></li>
-                <li><a href="#">vote</a></li>
+                <li><a href="#signup-section">sign up</a></li>
+                <li><a href="#signin-section">sign in</a></li>
+                <li><a href="#voting-section">parties</a></li>
+                <li><a href="#mandate-section">political offices</a></li>
+                <li><a href="#aspirants-section">aspirants</a></li>
+                <li><a href="#voting-section">vote</a></li>
             </ul>
         </nav>
 
         <div class="poltea-heading">
                 <h1>poltea</h1>
                 <p>Make your vote count once more this 2019</p>
+                <button type="submit" class="btn-do"><a href="#voting-section">Vote</a></button>
         </div>
          
      </header>     
     </section>
-<body>
+    <section id="signup-section">
+        <div class="form-box">
+        <div>
+            <h2 class="signup-h">
+                SIGN UP
+            </h2>
+            <hr>
+        </div>
+        <div class="flex-container">
+            <form action="">
+                      <div class="row">
+                            <label for="firstname">First Name</label>
+                            <input type="text" id="first-name" name="firstname">
+                      </div>                
+                        
+                      <div class="row">
+                            <label for="lastname">Last Name</label>
+                            <input type="text" id="lastname" name="lastname">
+                      </div>   
+                        
+                      <div class="row">
+                            <label for="email">Email</label>
+                            <input type="email" id="email" name="email" required>
+                      </div>
+                        
+                      <div class="row">
+                            <label for="phone">Phone</label>
+                            <input type="tel" id="phone" name="phone" name="phone">
+                      </div>
+                        
+                      <div class="row">
+                            <label for="password">Password</label>
+                            <input type="password" id="password" name="password">
+                      </div>
+                      <div>
+                            <button type="submit" class="btn-do" id="btn-signup">Submit</button>
+                      </div>                        
+            </form>
+        </div>
+
+    </div>
+        
+    </section>
+
+    <section id="signin-section">
+        <div class="form-box">
+                <div>
+                    <h2 class="signin-h">
+                            SIGN IN
+                    </h2>
+                     <hr>
+                </div>
+          <div class="flex-container">
+              <form action="">
+                <div class="row">
+                    <label for="email">Email</label>
+                    <input type="email" id="email" name="email" required>
+                </div> 
+
+                <div class="row">
+                    <label for="password">Password</label>
+                    <input type="password" id="password" name="password">
+                </div>
+                <p><a href="#reset-section" class="forgot-p-q">forgot password?</a></p>
+                <div>
+                    <button type="submit" class="btn-do" id="btn-signup">Submit</button>
+                </div>  
+            </form>  
+         </div>      
+        </div>
+    </section>
+    <section id="reset-section">
+        <div class="form-box">
+        <div>
+            <h2>RESET YOUR PASSWORD</h2>
+        </div>
+        <hr>
+
+        <div>
+            <p>
+                How do you want the code to reset your password?
+            </p>
+            <form action="">
+                  <div class="row2">
+                        <input type="radio" id="email">
+                        <label for="email">send code via Email.</label>
+                  </div>
+                   
+                  <div class="row2">
+                        <input type="radio" id="phone">
+                        <label for="phone">send code via phone.</label>
+                  </div>
+            </form>
+            
+        </div>
+    </div>   
+    </section>
+    <section id="party-section">
+    <div class="form-box flex-container">
+        <form action="">
+            <div class="row">
+                <label for="create-party">Create Party</label>
+                <input type="text" id="create-party" name="createparty">
+                <button type="submit" class="btn-do2">+</button>
+            </div>
+
+            <div class="row">
+                <label for="edit-party">Edit Party</label>
+                <input type="text" id="edit-party" class="edit-p" name="editparty">
+                <button type="submit" class="btn-do2">#</button>
+            </div>
+            <div class="row">
+                <label for="delete-party">Delete Party</label>
+                <input type="text" id="delete-party" name="deleteparty">
+                <button type="submit" class="btn-do2">x</button>
+            </div>
+        </form>    
+    </div>
+    </section>
     
+    <section id="mandate-section">
+        <div class="form-box">
+            <h2>POLITICAL OFFICES</h2>
+             <hr>
+            <div class="mandates">
+                <ul>
+                    <li>Presidency</li>
+                    <li>House of Representatives</li>
+                    <li>House of Assembly</li>
+                    <li>Governorship</li>
+                </ul>
+                <form>
+                    <div class="row2">
+                        <label for="new-office">New Office</label>
+                        <input type="text" id="new-office" name="newoffice">
+                        <button type="submit" class="btn-do2">+</button>
+                    </div>
+                </form> 
+            </div>
+        </div>       
+    </section>
+    <section id="aspirants-section">
+        <div class="form-box">
+            <h2>
+                RUN FOR ELECTIONS
+            </h2>
+            <hr>
+
+            <div>
+                <h3>Register</h3>
+                <div class="flex-container">
+                <form action="">
+                   <div class="row">
+                       <label for="polFirstName">First Name</label>
+                       <input type="text" id="polFirstName" name="politician">
+                   </div>
+                   <div class="row">
+                        <label for="polLastName" class="polLabel">Last Name</label>
+                        <input type="text" id="polLastName" name="politician">
+                    </div>   
+
+                   <div class="row2"> 
+                        <label for="party">party</label>
+                        <select name="" id="party">
+                               <option value=""></option>
+                        </select>
+                   </div>
+                   <div class="row2">
+                        <label for="post">Post</label>
+                        <select name="" id="post">
+                                 <option value=""></option>                             
+                        </select>
+                   </div>
+                   
+                   <button type="submit" class="btn-do">Declare</button>
+                </form>
+            </div>
+            </div>
+        </div>
+    </section>
+    <section id="voting-section">
+        <div class="form-box">
+            <h2>
+                VOTE FOR A CANDIDATE
+            </h2>
+            <hr>
+            <div class="flex-container">
+                <form action="">
+                    <div class="row">
+                       <label for="vote-candidate">Choose Aspirant</label>
+                       <select name="" id="vote-candidate">
+                           <option value=""></option>
+                       </select>
+                    </div>
+                    <div class="row">
+                       <label for="vote-party">Choose Party</label>
+                       <select name="" id="vote-party">
+                                <option value=""></option>
+                       </select>
+                    </div>
+                    <div class="row">
+                       <label for="vote-post">Choose Office</label>
+                        <select name="" id="vote-post">
+                                <option value=""></option>
+                        </select>
+                    </div>
+                    <button type="submit" id="vote-btn" class="btn-do">vote</button>   
+                </form>
+            </div>
+        </div>
+    </section>
+    <section id="user-profile-section">
+        <div class="profile-container">
+            <h3>PROFILE</h3>
+            <div class="user-photo">
+             
+            </div>
+
+            <div class="profile-data">
+                <div>Names:</div>
+                <div>Email:</div>
+                <div>Parties Voted For:</div>
+            </div>
+        </div>
+      <footer>
+         <p>&copy;poltea2019</p>
+      </footer>
+    </section>
 </body>
 </html>

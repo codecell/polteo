@@ -1,3 +1,4 @@
+                               /*---BASIC SETTINGS---*/
 * {
     margin: 0;
     padding: 0;
@@ -9,11 +10,7 @@ html {
     font-size: 20px;
     text-rendering: optimizeLegibility;
 }  
-
-#section-heading {
-    position: relative;
-}
-
+                           /*---HEADER SECTION---*/                       
 .header-nav {
     position: absolute;
     top: 50px;
@@ -38,7 +35,7 @@ html {
 
 .header-back-img {
     margin-top: 10px;
-    width: 800px;
+    width: 650px;
 }
 
 .poltea-heading {
@@ -49,17 +46,259 @@ html {
     width: 1140;
     top: 50%;
     left: 50%;
+    padding: 5%;
     transform: translate(-50%, -50%);
 }
 .poltea-heading p  {
     font-size: 25px;
+} 
+.poltea-heading a  {
+    text-decoration: none;
+    color: #4ea852;
+} 
+
+
+                               /*---SIGN UP SECTION---*/
+#signup-section {
+    text-align: center;
+    background-color: #edf1ed;
+    color: #4ea852;
+    width: 100%;
+    margin-top: 20px;
+    padding: 5%;
 }
 
+.flex-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+.row {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+}
+label {
+    width: inherit;
+    display: flex;
+    align-self: center;
+}
+input {
+    display: flex;
+    padding: 3%;
+    border: 1px solid rgb(204, 202, 202);
+    border-radius: 5px;
+    margin: 5px;
+}
 
+.signup-h {
+    margin-top: 10px;
+}
+.btn-do {
+    border: 2px solid #4ea852;
+    border-radius: 200px;
+    padding: 5px 15px;
+    background-color: yellow;
+    color: #4ea852;
+}
+.btn-do:active,
+.btn-do:hover {
+    background-color: #08f714;
+    color: #fff;
+} 
 
+                             /*---SIGN IN SECTION---*/
 
+#signin-section {
+    text-align: center;
+    color: #4ea852;
+    width: 100%;
+    margin-top: 20px;
+    padding: 5%;
+}
 
+.forgot-p-q {
+    text-decoration: none;
+    color: #555;
+    margin: 10px;
+}                             
 
+              /*---RESET PASSWORD SECTION---*/
+
+#reset-section {
+    text-align: center;
+    background-color: #edf1ed;
+    color: #4ea852;
+    width: 100%;
+    margin-top: 20px;
+    padding: 5%;
+}
+hr {
+    margin: 20px;
+}
+.row2 {
+    display: flex;
+    flex-direction: row;
+}    
+
+/*---ADMIN PARTY SECTION---*/
+
+#party-section {
+    text-align: center;
+    color: #4ea852;
+    width: 100%;
+    margin-top: 20px;
+    padding: 5%;
+}
+
+.form-box {
+    max-width: 600px;
+    margin: 50px auto;
+    background: white;
+    border-radius: 5px;
+    box-shadow: 5px 5px 15px -5px rgba(0, 0, 0, 0.3);
+    text-align: center;
+    padding: 3%;
+  }
+
+.btn-do2 {
+    align-self: center;
+    border: 2px solid #4ea852;
+    height: 35px;
+    width: 30px; 
+    border-radius: 50%;
+    background-color: yellow;
+    color: #4ea852;
+}
+.btn-do2:active,
+.btn-do2:hover {
+    background-color: #08f714;
+    color: #fff;
+} 
+.edit-p {
+    margin-left: 23px;
+}
+
+/*---MANDATES SECTION---*/
+
+#mandate-section {
+    text-align: center;
+    background-color: #edf1ed;
+    color: #4ea852;
+    width: 100%;
+    margin-top: 20px;
+    padding: 5%;
+}
+.mandates ul {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+}
+.mandates li {
+    list-style-type: none;
+}
+#new-office {
+    height: 30px;
+}
+
+/*---ASPIRANTS SECTION---*/
+#aspirants-section {
+    text-align: center;
+    color: #4ea852;
+    width: 100%;
+    margin-top: 20px;
+    padding: 5%;
+}
+
+select {
+    width: 170px;
+    height: 33px;
+    border-radius: 5px;
+    margin: 5px 0px 5px 55px;
+}
+#post {
+    margin-left: 60px;
+}
+/*---VOTING SECTION---*/
+#voting-section {
+    text-align: center;
+    background-color: #edf1ed;
+    color: #4ea852;
+    width: 100%;
+    margin-top: 20px;
+    padding: 5%;
+}
+     /*---USER-PROFILE SECTION---*/
+#user-profile-section {
+    text-align: center;
+    color: #4ea852;
+    width: 100%;
+    margin-top: 20px;
+    padding: 5%;
+}
+.profile-container {
+    position: relative;
+    max-width: 800px;
+    height: 500px;
+    margin: 20px auto;
+    background: white;
+    border-radius: 5px;
+    box-shadow: 5px 5px 15px -5px rgba(0, 0, 0, 0.3);
+    text-align: center;
+    padding: 3%;
+}
+.user-photo {
+    position: absolute;
+    top: 80px;
+    right: 100px;
+    width: 150px;
+    height: 150px;
+    border: 1px solid rgb(204, 202, 202);
+    border-radius: 50%;
+}
+.profile-data {
+    text-align: left;
+    position: absolute;
+    border: 1px solid rgb(204, 202, 202);
+    height: 250px;
+    width: 300px;
+    top: 200px;
+    left: 50px;
+    padding: 2%;
+}
+footer p {
+    color: rgb(204, 202, 202);
+}
+
+     /*---MEDIA QUERIES---*/
+
+@media (max-width: 1020px) {
+    .header-back-img {
+        margin-top: 10px;
+        width:500px;
+    }
+    .user-photo {
+        width: 100px;
+        height: 100px;
+    }
+    .header-nav {
+        position: absolute;
+        top: 5px;
+        left: 5px;
+    }
+    
+    .header-nav li {
+        display: block;
+        padding: 4px;
+    }
+    .poltea-heading {
+        font-size: 100%;
+        transform: translate(-50%, -85%);
+    } 
+    .poltea-heading p {
+        font-size: 60%;
+    }    
+}
 
 
 
