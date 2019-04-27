@@ -141,7 +141,7 @@ hr {
     flex-direction: row;
 }    
 
-/*---ADMIN PARTY SECTION---*/
+/*---PARTY SECTION---*/
 
 #party-section {
     text-align: center;
@@ -160,6 +160,18 @@ hr {
     text-align: center;
     padding: 3%;
   }
+.delete-select {
+    width: 150px;
+    height: 35px;
+    border-radius: 5px;
+    margin: 5px 0px 5px 57px;
+}
+.edit-select {
+    width: 150px;
+    height: 35px;
+    border-radius: 5px;
+    margin: 10px -20px 5px 57px;
+}
 
 .btn-do2 {
     align-self: center;
@@ -170,14 +182,12 @@ hr {
     background-color: yellow;
     color: #4ea852;
 }
+
 .btn-do2:active,
 .btn-do2:hover {
     background-color: #08f714;
     color: #fff;
 } 
-.edit-p {
-    margin-left: 23px;
-}
 
 /*---MANDATES SECTION---*/
 
@@ -268,6 +278,16 @@ select {
 }
 footer p {
     color: rgb(204, 202, 202);
+}
+
+   /*---PETITION SECTION---*/
+#petition-section {
+    text-align: center;
+    background-color: #edf1ed;
+    color: #4ea852;
+    width: 100%;
+    margin-top: 20px;
+    padding: 5%;
 }
 
      /*---MEDIA QUERIES---*/

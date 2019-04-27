@@ -1,0 +1,27 @@
+{
+  "name": "polteo",
+  "version": "1.0.0",
+  "description": "This is the elections project we've been waitin for.",
+  "main": "index.js",
+  "scripts": {
+    "test": "jasmine"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/codecell/polteo.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/codecell/polteo/issues"
+  },
+  "homepage": "https://github.com/codecell/polteo#readme",
+  "dependencies": {
+    "express": "^4.16.4"
+  },
+  "devDependencies": {
+    "eslint": "^5.16.0",
+    "jasmine": "^3.4.0"
+  }
+}

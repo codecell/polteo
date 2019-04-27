@@ -16,17 +16,18 @@
             <ul>
                 <li><a href="#signup-section">sign up</a></li>
                 <li><a href="#signin-section">sign in</a></li>
-                <li><a href="#voting-section">parties</a></li>
-                <li><a href="#mandate-section">political offices</a></li>
+                <li><a href="#party-section">parties</a></li>
+                <li><a href="#mandate-section">offices</a></li>
                 <li><a href="#aspirants-section">aspirants</a></li>
                 <li><a href="#voting-section">vote</a></li>
+                <li><a href="#petition-section">petition</a></li>
             </ul>
         </nav>
 
         <div class="poltea-heading">
                 <h1>poltea</h1>
                 <p>Make your vote count once more this 2019</p>
-                <button type="submit" class="btn-do"><a href="#voting-section">Vote</a></button>
+                <button type="submit" class="btn-do" id="btnvotehome"><a href="#voting-section">Vote</a></button>
         </div>
          
      </header>     
@@ -49,7 +50,12 @@
                       <div class="row">
                             <label for="lastname">Last Name</label>
                             <input type="text" id="lastname" name="lastname">
-                      </div>   
+                      </div>
+                      
+                      <div class="row">
+                            <label for="othername">Other Name</label>
+                            <input type="text" id="othername" name="othername">
+                      </div>
                         
                       <div class="row">
                             <label for="email">Email</label>
@@ -58,12 +64,12 @@
                         
                       <div class="row">
                             <label for="phone">Phone</label>
-                            <input type="tel" id="phone" name="phone" name="phone">
+                            <input type="tel" id="phone" name="phoneNumber" name="phone">
                       </div>
                         
                       <div class="row">
-                            <label for="password">Password</label>
-                            <input type="password" id="password" name="password">
+                            <label for="passport">Passport</label>
+                            <input type="text" id="passport" name="passport">
                       </div>
                       <div>
                             <button type="submit" class="btn-do" id="btn-signup">Submit</button>
@@ -129,45 +135,76 @@
     </div>   
     </section>
     <section id="party-section">
-    <div class="form-box flex-container">
-        <form action="">
-            <div class="row">
-                <label for="create-party">Create Party</label>
-                <input type="text" id="create-party" name="createparty">
-                <button type="submit" class="btn-do2">+</button>
-            </div>
+        <div class="form-box ">
+                <div>
+                    <h2>
+                        PARTIES
+                    </h2>
+                </div>
+         <hr>       
+        <div class="flex-container">
+            <form action="post">
+                <div>
+                    <div class="row">
+                        <label for="partyname">
+                            Party Name</label>
+                        <input type="text" id="partyname">
+                    </div>
+                    <div class="row">
+                        <label for="hqAddress">
+                            Hqtrs Address
+                        </label>
+                        <input type="text" id="hqAddress">
+                    </div>
+                    <div class="row">
+                        <label for="logourl">Logo</label>
+                        <input type="text" id="logourl">
+                    </div>                   
 
-            <div class="row">
-                <label for="edit-party">Edit Party</label>
-                <input type="text" id="edit-party" class="edit-p" name="editparty">
-                <button type="submit" class="btn-do2">#</button>
-            </div>
-            <div class="row">
-                <label for="delete-party">Delete Party</label>
-                <input type="text" id="delete-party" name="deleteparty">
-                <button type="submit" class="btn-do2">x</button>
-            </div>
-        </form>    
-    </div>
+                    <button type="submit" class="btn-do" id="">create party</button>
+                </div>
+            </form>
+        </div>  
+         <div class="flex-container">
+                <form action="">               
+                        <div class="row">
+                                <button type="submit" class="btn-do">submit</button>
+                                <select name="editparty" id="editparty">
+                                    <option value="" selected>edit party</option>
+                                </select>                                
+                        </div>                        
+                </form>
+        </div>
+        <div class="flex-container">
+                <form action="">
+                        <div class="row">
+                                <button type="submit" id="deleteparty" class="btn-do">remove</button> 
+                                <select name="deleteparty" id="deleteparty">
+                                    <option value="" selected>select party to delete</option>
+                                </select>                                                                
+                        </div>     
+                </form>
+        </div>                      
+                        
+    </div>      
     </section>
     
     <section id="mandate-section">
         <div class="form-box">
             <h2>POLITICAL OFFICES</h2>
              <hr>
-            <div class="mandates">
-                <ul>
-                    <li>Presidency</li>
-                    <li>House of Representatives</li>
-                    <li>House of Assembly</li>
-                    <li>Governorship</li>
-                </ul>
-                <form>
-                    <div class="row2">
-                        <label for="new-office">New Office</label>
-                        <input type="text" id="new-office" name="newoffice">
-                        <button type="submit" class="btn-do2">+</button>
+            <div class="flex-container">
+                <form action="">
+
+                    <div class="row">
+                        <label for="officetype">Office Type</label>
+                        <input type="text" id="officetype" name="type">
                     </div>
+                    <div class="row">
+                            <label for="officename">Name of Office</label>
+                            <input type="text" id="officename" name="name">
+                    </div>
+                    <button type="submit" class="btn-do" id="btnoffice">create office</button>
                 </form> 
             </div>
         </div>       
@@ -180,29 +217,21 @@
             <hr>
 
             <div>
-                <h3>Register</h3>
+                <h3>Candidate</h3>
                 <div class="flex-container">
                 <form action="">
                    <div class="row">
-                       <label for="polFirstName">First Name</label>
-                       <input type="text" id="polFirstName" name="politician">
+                       <label for="officeId">Office ID</label>
+                       <input type="text" id="officeId" name="officeId">
                    </div>
                    <div class="row">
-                        <label for="polLastName" class="polLabel">Last Name</label>
-                        <input type="text" id="polLastName" name="politician">
+                        <label for="partyId" class="polLabel">Party ID</label>
+                        <input type="text" id="partyId" name="partyId">
                     </div>   
 
                    <div class="row2"> 
-                        <label for="party">party</label>
-                        <select name="" id="party">
-                               <option value=""></option>
-                        </select>
-                   </div>
-                   <div class="row2">
-                        <label for="post">Post</label>
-                        <select name="" id="post">
-                                 <option value=""></option>                             
-                        </select>
+                        <label for="candidateId">Candidate ID</label>
+                        <input type="text" id="candidateId">
                    </div>
                    
                    <button type="submit" class="btn-do">Declare</button>
@@ -220,22 +249,17 @@
             <div class="flex-container">
                 <form action="">
                     <div class="row">
-                       <label for="vote-candidate">Choose Aspirant</label>
-                       <select name="" id="vote-candidate">
-                           <option value=""></option>
-                       </select>
+                       <label for="voterId">Voter ID</label>
+                       <input type="text" id="voterId" name="craetedBy">
+                    </div>
+                    
+                    <div class="row">
+                       <label for="officeId">Office ID</label>
+                        <input type="text" id="officeId" name="officeID">
                     </div>
                     <div class="row">
-                       <label for="vote-party">Choose Party</label>
-                       <select name="" id="vote-party">
-                                <option value=""></option>
-                       </select>
-                    </div>
-                    <div class="row">
-                       <label for="vote-post">Choose Office</label>
-                        <select name="" id="vote-post">
-                                <option value=""></option>
-                        </select>
+                            <label for="candidateId">Candidate ID</label>
+                             <input type="text" id="candidateId" name="candidateId">
                     </div>
                     <button type="submit" id="vote-btn" class="btn-do">vote</button>   
                 </form>
@@ -259,5 +283,32 @@
          <p>&copy;poltea2019</p>
       </footer>
     </section>
+    <section id="petition-section">
+         <div class="form-box">
+                        <div>
+                            <h2>
+                                CREATE PETITION
+                            </h2>
+                        </div>
+                        <hr>
+                    <div class="flex-container">
+                        <form action="">
+                                   <div class="row">
+                                        <label for="petionerId">Petitioner ID</label>
+                                        <input type="text" id="petitionerId" name="craetedBy">
+                                    </div>
+                                    <div class="row">
+                                           <label for="officeID">Disputed Office ID</label>
+                                           <input type="text" id="officeID" name="office">
+                                    </div>
+                                    <div>
+                                           <textarea name="" id="" cols="50" rows="10">create petition here</textarea>
+                                    </div>
+                                    <button type="submit" class="btn-do" id="btnpetition">create</button>   
+                        </form>                            
+                    </div>             
+         </div>
+    </section>
+   <script src="./home.js"></script> 
 </body>
 </html>
