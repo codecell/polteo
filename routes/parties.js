@@ -1,52 +1,59 @@
+const { parties, validateParty } = require('../models/party');
 const express = require('express');
 const router = express.Router();
 
-const parties = [
-    {
-         "id": 1,
-         "name": "PPP",
-         "hqAddress": "12 Montgomery rd",
-         "logoUrl": "broom.png"
-    },
-   {
-         "id": 2,
-         "name": "CAP",
-         "hqAddress": "10 Downing str",
-         "logoUrl": "packer.png"
-    },
-    {
-         "id": 3,
-         "name": "ABC",
-         "hqAddress": "4 Aso rock str",
-         "logoUrl": "dustbin.jpg"
-    }
-];
 
-
-router.get('/api/v1/parties', (req, res) => {
+router.get('/api/v1/parties', (_req, res) => {
     res.send(parties);
 });
 
-router.post('/api/v1/parties', (req, res) => {
-     const party = {
-         "id": parties.length + 1,
-         "name": req.body.partyname,
-         "hqAddress": req.body.hqAddress,
-         "logourl": req.body.logourl
-     }
-     res.send(party);
+router.get('/api/v1/parties/:id', (req, res) => {
+    const party = parties.find(p => p.id === parseInt(req.params.id));
+        if (!party) return res.status(404).send('Party with given ID not found');
+    
+    res.send(party);
 });
 
+router.post('/api/v1/parties', (req, res) => {
 
+     const { error } = validateParty(req.body);
+     if(error) return res.status(400).send(error.details[0].message);
 
+     const party = {
+         id: parties.length + 1,
+         name: req.body.name,
+         hqAddress: req.body.hqAddress,
+         logoUrl: req.body.logoUrl
+     };
 
+     parties.push(party);
+     res.status(201).send(party);
+});
 
+router.patch('/api/v1/parties/:id', (req, res) => {
 
+    const party = parties.find(p => p.id === parseInt(req.params.id));
+    if(!party) return res.status(404).send('Party with given ID not found');
 
+    const { error } = validateParty(req.body);
+    if(error) return res.status(400).send(error.details[0].message);
+    
+    party.name = req.body.name;
+    party.hqAddress = req.body.hqAddress;
+    party.logoUrl = req.body.logoUrl;  
 
+    res.send(party);
+});
 
+router.delete('/api/v1/parties/:id', (req, res) => {
+   const party = parties.find(p => p.id === parseInt(req.params.id));
+   if(!party) return res.status(404).send('party with given ID not found');
 
-
+   const index = parties.indexOf(party);
+   parties.splice(index, 1);
+   
+   res.send(party);
+});
 
 
 module.exports = router;
