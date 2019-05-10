@@ -1,30 +1,14 @@
-const { users, validateUser } = require('../models/user');
-const express = require('express');
-const router = express.Router();
 
+module.exports = function (app) {
+    const usersController = require('../controllers/users');
 
-router.get('/api/v1/users', (req, res) => {
-    res.send(users);
-});
-
-router.post('/api/v1/users', (req, res) => {
+    app.route('/api/v1/users')
+        .get(usersController.listAllUsers)
+        .post(usersController.createUser);
     
-    const { error } = validateUser(req.body);
-    if(error) return res.status(400).send(error.details[0].message);
+    app.route('/api/v1/users/:id')
+        .get(usersController.getUserById)
+        .patch(usersController.updateUser)
+        .delete(usersController.removeUser);
+};
 
-    const user = {
-        id: users.length + 1,
-        firstname: req.body.firstname,
-        lastname: req.body.lastname,
-        othername: req.body.othername,
-        email: req.body.email,
-        phoneNumber: req.body.phoneNumber,
-        passportUrl: req.body.phoneNumber,
-        isAdmin: req.body.isAdmin
-    };
-    users.push(user);
-    res.send(user);
-});
-
-
-module.exports = router;

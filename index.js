@@ -1,24 +1,34 @@
-const petitions = require('./routes/petitions');
-const votes = require('./routes/votes');
-const candidates = require('./routes/candidates');
-const offices = require('./routes/offices');
-const users = require('./routes/users');
-const parties = require('./routes/parties');
+// const petitions = require('./routes/petitions');
+const votesRoutes = require('./routes/votes');
+const aspirantsRoutes = require('./routes/aspirants');
+const officesRoutes = require('./routes/offices');
+const partiesRoutes = require('./routes/parties');
+const usersRoutes = require('./routes/users');
 const express = require('express');
 
 const app = express();
 
-app.use(express.json());
-app.use('/', parties);
-app.use('/', users);
-app.use('/', offices);
-app.use('/', candidates);
-app.use('/', votes);
-app.use('/', petitions);
+require('dotenv').config();
+const Pool = require('pg').Pool;
 
+const pool = new Pool({
+    user: process.env.DB_USER,
+    host: process.env.DB_HOST,
+    database: 'polteo',
+    password:  process.env.DB_PASS,
+    port: 5432
+});
+
+app.use(express.json());
+
+usersRoutes(app);
+partiesRoutes(app);
+officesRoutes(app);
+aspirantsRoutes(app);
+votesRoutes(app);
+// app.use('/', petitions);
 
 app.use(express.static('public'));
-
 
 const port = process.env.port || 3000;
 app.listen(port, () =>{

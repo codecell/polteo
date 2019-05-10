@@ -64,7 +64,6 @@ html {
     background-color: #edf1ed;
     color: #4ea852;
     width: 100%;
-    margin-top: 20px;
     padding: 5%;
 }
 
@@ -130,7 +129,6 @@ input {
     background-color: #edf1ed;
     color: #4ea852;
     width: 100%;
-    margin-top: 20px;
     padding: 5%;
 }
 hr {
@@ -189,14 +187,13 @@ hr {
     color: #fff;
 } 
 
-/*---MANDATES SECTION---*/
+/*---MANDATES(OFFICES) SECTION---*/
 
 #mandate-section {
     text-align: center;
     background-color: #edf1ed;
     color: #4ea852;
     width: 100%;
-    margin-top: 20px;
     padding: 5%;
 }
 .mandates ul {
@@ -235,7 +232,6 @@ select {
     background-color: #edf1ed;
     color: #4ea852;
     width: 100%;
-    margin-top: 20px;
     padding: 5%;
 }
      /*---USER-PROFILE SECTION---*/
@@ -286,8 +282,11 @@ footer p {
     background-color: #edf1ed;
     color: #4ea852;
     width: 100%;
-    margin-top: 20px;
-    padding: 5%;
+    padding: 3%;
+}
+/*---FOOTER--*/
+footer {
+    text-align: center;
 }
 
      /*---MEDIA QUERIES---*/

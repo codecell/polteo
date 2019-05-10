@@ -1,34 +1,64 @@
-const Joi = require('joi');
+const pool = require('../db');
 
-const parties = [
-    {
-         id: 1,
-         name: "PPP",
-         hqAddress: "12 Montgomery rd",
-         logoUrl: "broom.png"
-    },
-   {
-         id: 2,
-         name: "CAP",
-         hqAddress: "10 Downing str",
-         logoUrl: "packer.png"
-    },
-    {
-         id: 3,
-         name: "ABC",
-         hqAddress: "4 Aso rock str",
-         logoUrl: "dustbin.jpg"
-    }
-];
+const Party = function (party) {
+     this.name = party.name;
+     this.hqAddress = party.hqAddress;
+     this.logoUrl = party.logoUrl;
+};
 
-function validateParty(party) {
-     const schema = {
-         name: Joi.string().min(2).max(255).required(),
-         hqAddress: Joi.string().min(2).max(55).required(),
-         logoUrl: Joi.string().min(2).max(255)
-     }
-     return Joi.validate(party, schema);
- }
+Party.prototype.getProps = function () {
+    return [this.name, this.hqAddress, this.logoUrl];
+};
 
-module.exports.parties = parties;
-module.exports.validateParty = validateParty;
+Party.createParty = (partyProps, result) => {
+     pool.query('INSERT INTO parties (name, hqAddress, logoUrl) VALUES ($1, $2, $3) RETURNING *',
+          partyProps,
+          (err, res) => {
+               if(err) return result(err, null);
+               result(null, res.rows[0]);
+          }
+     );
+};
+
+Party.getParties = (result) => {
+     pool.query('SELECT * FROM parties ORDER BY id ASC',
+          (err, res) => {
+               if(err) return result(null, err);   
+               result(null, res.rows);
+     });
+};
+
+Party.getPartyById = (id, result) => {
+     pool.query(
+          'SELECT * FROM parties WHERE id = $1',
+          [id],
+          (err, res) => {
+          if(err) return result(err, null);
+          result(null, res.rows);
+     });
+};
+
+Party.updatePartyById = (id, party, result) => {
+     
+     pool.query(
+          'UPDATE parties SET name = $1, hqaddress = $2, logoUrl = $3 WHERE id = $4 RETURNING *',
+           party.getProps().concat([id]),
+          (err, res) => {
+               if(err) return result(err, null);
+               result(null, res.rows);
+          }
+     );
+}
+
+Party.deleteParty = (id, result) => {
+     pool.query(
+          'DELETE FROM parties WHERE id = $1 RETURNING*',
+          [id],
+          (err, res) => {
+          if(err) return result(err, null);
+          result(null, res.rows);
+          }
+     );
+}
+
+module.exports = Party;
