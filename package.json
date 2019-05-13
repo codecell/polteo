@@ -4,7 +4,8 @@
   "description": "This is the elections project we've been waitin for.",
   "main": "index.js",
   "scripts": {
-    "test": "jasmine"
+    "test": "jasmine",
+    "start": "nodemon index.js"
   },
   "repository": {
     "type": "git",

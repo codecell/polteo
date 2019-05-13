@@ -1,60 +1,76 @@
 const Joi = require('joi');
 const Office = require('../models/office');
 
-module.exports.createOffice = (req, res) => {
-    const {error} = validateOffice(req.body);
-    if(error) return res.status(400).send(error.details[0].message);
+module.exports.createOffice =  async (req, res) => {
+    try {
+        const {error} = validateOffice(req.body);
+        if(error) return res.status(400).send(error.details[0].message);
 
-    let officeProps = new Office(req.body);
-    if(!officeProps.type || !officeProps.name) return res.status(400).json({error: true, message: 'please provide NAME/TYPE of oofice'});
+        let officeProps = new Office(req.body);
+        if(!officeProps.type || !officeProps.name) return res.status(400).json({error: true, message: 'please provide NAME/TYPE of oofice'});
 
-    Office.createOffice(
-        officeProps.getProps(),
-        (err, office) => {
-            if(err) return res.status(500).send({error: true, message: 'internal server error'});
-            res.send(office);
-        }
-    );
-} 
-
-module.exports.listAllOffices = (req, res) => {
-    Office.getOffices(
-        (err, offices) => {
-        if(err) return res.status(500).send({error: true, message: 'internal server error'});
-        res.send(offices);
-    })
+        const office = await Office.createOffice( officeProps.getProps() );
+        return res.send( { status : 200, data: office } );
+    
+    } catch (err) {
+        if(err) return res.status(500).send(
+            { status: 500, error: err.message }
+        );
+    }
+    
 };
 
-module.exports.getOfficeById = (req, res) => {
-    Office.getOfficeById(
-        req.params.id,
-        (err, office) => {
-            if(err) return res.status(500).send({error: true, message: 'internal server error'});
-            res.send(office);
-        }
-    );
+module.exports.listAllOffices = async (req, res) => {
+    try {
+        const offices = await Office.getOffices();
+        return res.json( { status : 200, data: offices } );
+
+    } catch (err) {
+        if(err) return res.status(500).send(
+            { status: 500, error: err.message }
+        );
+    }    
+};
+
+module.exports.getOfficeById = async (req, res) => {
+    try {
+        const office = await Office.getOfficeById( req.params.id );
+        return res.send( { status : 200, data: office } );
+
+    } catch (err) {
+        if(err) return res.status(500).send(
+            { status: 500, error: err.message }
+        );
+    }   
 }
 
-module.exports.updateOffice = (req, res) => {
-    Office.updateOfficeById(
-        req.params.id,
-        new Office(req.body),
-        (err, office) => {
-            if(err) return res.status(500).send({error: true, message: 'internal server error'});
-            res.send(office);
-        }
-    );
-}
+module.exports.updateOffice = async (req, res) => {
+    try {
+        const updatedOffice = await Office.updateOfficeById(
+            req.params.id,
+            new Office(req.body)
+        );
+        return  res.send( { status : 200, data: updatedOffice } );
 
-module.exports.removeOffice = (req, res) => {
-    Office.deleteOffice(
-        req.params.id,
-        (err, office) => {
-            if(err) return res.status(500).send({error: true, message: 'internal server error'});
-            res.send(office); 
-        }
-    );
-}
+    } catch (err) {
+        if(err) return res.status(500).send(
+            { status: 500, error: err.message }
+        );
+    }    
+};
+
+module.exports.removeOffice = async (req, res) => {
+    try {
+        const deletedOffice = await Office.deleteOffice( req.params.id );
+        return res.send( { status : 200, data: deletedOffice } );
+
+    } catch (err) {
+        if(err) return res.status(500).send(
+            { status: 500, error: err.message }
+        );
+    }    
+};
+
 function validateOffice(office) {
     const schema = {
         type: Joi.string().min(2).max(255).required(),

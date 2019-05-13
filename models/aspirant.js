@@ -10,59 +10,66 @@ Aspirant.prototype.getProps = function () {
     return [this.office_id, this.party_id, this.candidate_id];
 };
 
-Aspirant.createAspirant = (aspirantProps, result) => {
-    pool.query(
-        'INSERT INTO aspirants (office_id, party_id, candidate_id) VALUES ($1, $2, $3) RETURNING *',
-        aspirantProps,
-        (err, res) => {
-            if(err) return result(err, null);
-            result(null, res.rows[0]);
-        }
-    );
+Aspirant.createAspirant = async (aspirantProps) => {
+    try {
+         const result = await pool.query(
+            'INSERT INTO aspirants (office_id, party_id, candidate_id) VALUES ($1, $2, $3) RETURNING *',
+            aspirantProps
+        );
+         return result.rows[0];
+
+    } catch (err) {
+         if(err) return err;
+    }    
 };
 
-Aspirant.getAspirants = (result) => {
-    pool.query(
-        'SELECT * FROM aspirants ORDER BY id ASC',
-        (err, res) => {
-            if(err) return result(err, null);
-            result(null, res.rows); 
-        }
-    );
+Aspirant.getAspirants = async () => {
+    try {
+         const result = await pool.query( 'SELECT * FROM aspirants ORDER BY id ASC' );
+         return result.rows;
+
+    } catch (err) {
+         if(err) return err;
+    }    
 };
 
-Aspirant.getAspirantById = (id, result) => {
-    pool.query(
-        'SELECT * FROM aspirants WHERE id = $1',
-        [id],
-        (err, res) => {
-            if(err) return result(err, null);
-            result(null, res.rows);
-        }
-    );
+Aspirant.getAspirantById = async (id) => {
+    try {
+        const result = await pool.query(
+            'SELECT * FROM aspirants WHERE id = $1',
+            [id]
+        );
+        return result.rows[0];
+
+    } catch (err) {
+         if(err) return err;
+    }    
 };
 
-Aspirant.updateAspirant = (id, aspirant, result) => {
-    pool.query(
-        'UPDATE aspirants SET office_id = $1, party_id = $2, candidate_id = $3 WHERE id = $4 RETURNING *',
-        aspirant.getProps().concat([id]),
-        (err, res) => {
-            if(err) return result(err, null);
-            result(null, res.rows);
-        }
+Aspirant.updateAspirant = async (id, aspirant) => {
+    try {
+         const result = await pool.query(
+            'UPDATE aspirants SET office_id = $1, party_id = $2, candidate_id = $3 WHERE id = $4 RETURNING *',
+            aspirant.getProps().concat([id])
+        );
+        return result.rows[0];
 
-    );
+    } catch (err) {
+        if(err) return err;
+    }    
 };
 
-Aspirant.deleteAspirant = (id, result) => {
-    pool.query(
-        'DELETE FROM aspirants WHERE id = $1 RETURNING *',
-        [id],
-        (err, res) => {
-            if(err) return result(err, null);
-            result(null, res.rows);
-        }
-    );
+Aspirant.deleteAspirant = async (id) => {
+    try {
+         const result = await pool.query(
+            'DELETE FROM aspirants WHERE id = $1 RETURNING *',
+            [id]
+        );
+        return result.rows[0];
+        
+    } catch (err) {
+        if(err) return err;
+    }    
 }
 
 module.exports = Aspirant;

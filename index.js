@@ -1,4 +1,4 @@
-// const petitions = require('./routes/petitions');
+const petitionsRoutes = require('./routes/petitions');
 const votesRoutes = require('./routes/votes');
 const aspirantsRoutes = require('./routes/aspirants');
 const officesRoutes = require('./routes/offices');
@@ -26,7 +26,7 @@ partiesRoutes(app);
 officesRoutes(app);
 aspirantsRoutes(app);
 votesRoutes(app);
-// app.use('/', petitions);
+petitionsRoutes(app);
 
 app.use(express.static('public'));
 

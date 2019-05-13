@@ -1,48 +1,81 @@
 const Joi = require('joi');
 const User = require('../models/user');
 
+module.exports.postUser = async (req, res) => {
+    try {
+        const {error} = validateUser(req.body);
+        if(error) return res.status(400).send(error.details[0].message);
 
-module.exports.listAllUsers = (req, res) => {
-    User.getAllUsers((err, users) => {
-        if(err) res.status(500).send({error: true, message: 'internal server error'});
-        res.send(users);
-    });
-};
-module.exports.createUser = (req, res) => {
-
-    const {error} = validateUser(req.body);
-    if(error) return res.status(400).send(error.details[0].message);
-
-    let userProps = new User(req.body);
+        let userProps = new User(req.body);
     
-    if(!userProps.firstname || !userProps.lastname) res.status(400).send({error: true, message: 'please provide f/l name'});
+        if(!userProps.firstname || !userProps.lastname) res.status(400).send({error: true, message: 'please provide f/l name'});
 
-    User.createUser(userProps.getProps(),
-        (err, user) => {
-        if(err) return res.status(500).send({error: true, message: 'internal server error'});
-        res.json(user);
-    });
+        const user = await User.createUser(
+        userProps.getProps()
+        );
+        return res.json(
+            { status : 200, data: user }
+        );   
+    }
+    catch(err) {
+        if(err) return res.status(500).send(
+            { status: 500, error: err.message }    
+        );
+    };
 };
 
-module.exports.getUserById = (req, res) => {
-    User.getUserById(req.params.id, (err, user) =>{
-        if(err) return res.send(err);
-        res.json(user);
-    });
+module.exports.listAllUsers = async (req, res) => {   
+   
+    try {
+        const users = await User.getUsers();
+        return res.json({ status : 200, data: users });
+
+    } catch(err){
+        if(err) return res.status(500).send(
+            { status: 500, error: err.message }    
+        );
+    }
 };
 
-module.exports.updateUser = function (req, res) {
-    User.updateUserById(req.params.id, new User(req.body), (err, user) => {        
-        if(err) return res.send(err);
-        res.json(user);
-    });
+
+module.exports.getUserById = async (req, res) => {
+    try {
+        const user = await User.getUserById(req.params.id);
+        return res.json({ status : 200, data: user }); 
+    }
+    catch(err) {
+        if(err) return res.status(500).send(
+            { status: 500, error: err.message }
+        );
+    }    
 };
 
-module.exports.removeUser = (req, res) => {
-    User.deleteUser(req.params.id, (err, user) => {
-        if(err) return res.send(err);
-        res.json({message: 'User successfully Deleted'});
-    });
+module.exports.updateUser = async (req, res) => {
+    
+    try{
+        const updatedUser = await User.updateUserById(
+            req.params.id,
+            new User(req.body)
+        );
+        return res.json({ status : 200, data: updatedUser });
+    }
+    catch (err) {
+        if(err) return res.status(500).send(
+            { status: 500, error: err.message }
+        );
+    }   
+};
+
+module.exports.removeUser = async (req, res) => {
+    try {
+        const deletedUser = await User.deleteUser(req.params.id);
+        return res.json({ status : 200, data: deletedUser });
+
+    } catch (err) {
+        if(err) return res.status(500).send(
+            { status: 500, error: err.message }
+        );
+    }   
 };
 
 function validateUser(user) {

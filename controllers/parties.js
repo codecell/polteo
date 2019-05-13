@@ -1,57 +1,77 @@
 const Joi = require('joi');
 const Party = require('../models/party');
 
-module.exports.createParty = (req, res) => {
+module.exports.createParty = async (req, res) => {
+    try {
+        const {error} = validateParty(req.body);
+        if(error) return res.status(400).send(error.details[0].message);
 
-    const {error} = validateParty(req.body);
-    if(error) return res.status(400).send(error.details[0].message);
+        let partyProps = new Party(req.body);
 
-    let partyProps = new Party(req.body);
-
-    if(!partyProps.name || !partyProps.hqAddress) return res.status(400).json({error: true, message: 'please provide NAME & ADDRESS'});
+        if(!partyProps.name || !partyProps.hqAddress) return res.status(400).json({error: true, message: 'please provide NAME & ADDRESS'});
     
-    Party.createParty(
-        partyProps.getProps(),
-        (err, party) => {
-        if(err) return res.status(500).send({error: true, message: 'internal server error'});
-        res.json(party);
-        }
-    );
+        const party = await Party.createParty( partyProps.getProps() );
+        return res.json( { status: 200, data: party} );
+    
+    } catch (err) {
+        if(err) return res.status(500).send(
+            { status: 500, error: err.message }
+        );
+    }    
 };
 
-module.exports.listAllParties = (req, res) => {
-    Party.getParties((err, parties) => {
-        if(err) return res.status(500).send({error: true, message: 'internal server error'});
-        res.send(parties);
-    });
+module.exports.listAllParties = async (req, res) => {
+    try {
+        const parties =  await Party.getParties();
+        return res.json( { status : 200, data: parties } );
+
+    } catch (err) {
+        if(err) return res.status(500).send(
+            { status: 500, error: err.message }
+        );
+    }
 };
 
-module.exports.getPartyById = (req, res) => {
-    Party.getPartyById(req.params.id, (err, party) => {
-        if(err) return res.status(500).send({error: true, message: 'internal server error'});
-        res.send(party);
-        }
-    );
+module.exports.getPartyById = async (req, res) => {
+    try {
+        const party = await Party.getPartyById( req.params.id );
+        return res.json( { status : 200, data: party } );
+
+    } catch (err) {
+        if(err) return res.status(500).send(
+            { status: 500, error: err.message }
+        );
+    }    
 };
 
-module.exports.updateParty = (req, res) => {
-    Party.updatePartyById(
-        req.params.id,
-        new Party(req.body),
-        (err, party) => {
-            if(err) return res.status(500).send({error: true, message: 'internal server error'});
-            res.send(party);
-        }
-    );
+module.exports.updateParty =  async (req, res) => {
+    try {
+        const updatedParty = await Party.updatePartyById(
+            req.params.id,
+            new Party(req.body)
+        );
+        return res.json( { status : 200, data: updatedParty } );
+
+    } catch (err) {
+        if(err) return res.status(500).send(
+            { status: 500, error: err.message }
+        );
+    }    
 };
 
-module.exports.removeParty = (req, res) => {
-    Party.deleteParty(req.params.id, (err, party) => {
-        if(err) return res.status(500).send({error: true, message: 'internal server error'});
-        res.send(party);
-        }
-    );
-}
+module.exports.removeParty = async (req, res) => {
+    try {
+        const deletedParty = await Party.deleteParty(
+            req.params.id
+        );
+        return res.send( { status : 200, data: deletedParty } ); 
+
+    } catch (err) {
+        if(err) return res.status(500).send(
+            { status: 500, error: err.message }
+        );;
+    }    
+};
 
 function validateParty(party) {
     const schema = {

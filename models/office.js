@@ -8,59 +8,67 @@ const Office = function (office) {
 
 Office.prototype.getProps = function () {
     return [this.type, this.name]
-}
-
-Office.createOffice = (officeProps, result) => {
-    pool.query(
-        'INSERT INTO offices (type, name) VALUES ($1, $2) RETURNING *',
-        officeProps,
-        (err, res) => {
-            if(err) return result(err, null);
-            result(null, res.rows[0]);
-        }
-    );
 };
 
-Office.getOffices = (result) => {
-    pool.query(
-        'SELECT * FROM offices ORDER BY id ASC',
-        (err, res) => {
-            if(err) return result(err, null);
-            result(null, res.rows);
-        }
-    );
+Office.createOffice = async (officeProps) => {
+    try {
+        const result = await pool.query(
+            'INSERT INTO offices (type, name) VALUES ($1, $2) RETURNING *',
+            officeProps
+        );
+        return result.rows[0];
+
+    } catch (err) {
+        if(err) return err;
+    }    
 };
 
-Office.getOfficeById = (id, result) => {
-    pool.query(
-        'SELECT * FROM offices WHERE id = $1',
-        [id],
-        (err, res) => {
-            if(err) return result(err, null);
-            result(null, res.rows);  
-        }
-    );
+Office.getOffices = async () => {
+    try {
+        const result = await pool.query( 'SELECT * FROM offices ORDER BY id ASC' );
+        return result.rows;
+
+    } catch (err) {
+        if(err) return err;
+    }    
 };
 
-Office.updateOfficeById = (id, office, result) => {
-    pool.query(
-        'UPDATE offices SET type = $1, name = $2 WHERE id = $3 RETURNING *',
-        office.getProps().concat([id]),
-        (err, res) => {
-            if(err) return result(err, null);
-            result(null, res.rows);
-        }
-    );
+Office.getOfficeById = async (id) => {
+    try {
+        const result = await pool.query(
+            'SELECT * FROM offices WHERE id = $1',
+            [id]
+        );
+        return result.rows[0];
+
+    } catch (err) {
+        if(err) return err;
+    }    
 };
 
-Office.deleteOffice = (id, result) => {
-    pool.query(
-        'DELETE FROM offices WHERE id = $1 RETURNING*',
-        [id],
-        (err, res) => {
-            if(err) return result(err, null);
-            result(null, res.rows);
-        }
-    );
+Office.updateOfficeById =  async (id, office) => {
+    try {
+        const result = await pool.query(
+            'UPDATE offices SET type = $1, name = $2 WHERE id = $3 RETURNING *',
+            office.getProps().concat([id]) 
+        );
+        return result.rows[0];
+
+    } catch (err) {
+        if(err) return err;
+    }    
+};
+
+Office.deleteOffice = async (id) => {
+    try {
+        const result = await pool.query(
+            'DELETE FROM offices WHERE id = $1 RETURNING*',
+            [id]
+        );
+            return result.rows[0];
+
+    } catch (err) {
+        if(err) return err;
+    }    
 }
 module.exports = Office;

@@ -11,58 +11,66 @@ Vote.prototype.getProps = function () {
     return [this.createdOn, this.createdBy, this.office_id, this.candidate_id];
 };
 
-Vote.createVote = (voteProps, result) => {
-    pool.query(
-        'INSERT INTO votes (createdOn, createdBy, office_id, candidate_id) VALUES ($1, $2, $3, $4) RETURNING *',
-        voteProps,
-        (err, res) => {
-            if(err) return result(err, null);
-            result(null, res.rows[0]);
-        }
-    );
+Vote.createVote = async (voteProps) => {
+    try{
+        const result = await pool.query(
+            'INSERT INTO votes (createdOn, createdBy, office_id, candidate_id) VALUES ($1, $2, $3, $4) RETURNING *',
+            voteProps
+        );
+        return result.rows[0];
+
+    } catch (err) {
+        if(err) return err;
+    }    
 };
 
-Vote.getVotes = (result) => {
-    pool.query(
-        'SELECT * FROM votes ORDER BY id ASC',
-        (err, res) => {
-            if(err) return result(err, null);
-            result(null, res.rows);
-        }
-    );
+Vote.getVotes = async () => {
+    try {
+        const result = await pool.query( 'SELECT * FROM votes ORDER BY id ASC' );
+        return result.rows;
+
+    } catch (err) {
+        if(err) return err;
+    }    
 };
 
-Vote.getVoteById = (id, result) => {
-    pool.query(
-        'SELECT * FROM votes WHERE id = $1',
-        [id],
-        (err, res) => {
-            if(err) return result(err, null);
-            result(null, res.rows);
-        }
-    );
+Vote.getVoteById = async (id) => {
+    try {
+        const result = await pool.query(
+            'SELECT * FROM votes WHERE id = $1',
+            [id]
+            );
+            return result.rows[0];
+
+    } catch (err) {
+        if(err) return err;
+    }    
 };
 
-Vote.updateVote = (id, vote, result) => {
-    pool.query(
-        'UPDATE votes SET createdOn = $1, createdBy = $2, office_id = $3, candidate_id = $4 WHERE id = $5 RETURNING *',
-        vote.getProps().concat([id]),
-        (err, res) => {
-            if(err) return result(err, null);
-            result(null, res.rows);
-        }
-    );
+Vote.updateVote = async (id, vote) => {
+    try {
+        const result = await pool.query(
+            'UPDATE votes SET createdOn = $1, createdBy = $2, office_id = $3, candidate_id = $4 WHERE id = $5 RETURNING *',
+            vote.getProps().concat([id])
+        );
+        return result.rows[0];
+
+    } catch (err) {
+        if(err) return err;
+    }    
 };
 
-Vote.deleteVote = (id, result) => {
-    pool.query(
-        'DELETE FROM votes WHERE id = $1 RETURNING *',
-        [id],
-        (err, res) => {
-            if(err) return result(err, null);
-            result(null, res.rows);
-        }
-    );
+Vote.deleteVote = async (id) => {
+    try {
+        const result = await pool.query(
+            'DELETE FROM votes WHERE id = $1 RETURNING *',
+            [id]
+        );
+        return result.rows[0];
+
+    } catch (err) {
+        if(err) return err;
+    }    
 };
 module.exports = Vote;
  

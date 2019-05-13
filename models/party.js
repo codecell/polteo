@@ -10,55 +10,65 @@ Party.prototype.getProps = function () {
     return [this.name, this.hqAddress, this.logoUrl];
 };
 
-Party.createParty = (partyProps, result) => {
-     pool.query('INSERT INTO parties (name, hqAddress, logoUrl) VALUES ($1, $2, $3) RETURNING *',
-          partyProps,
-          (err, res) => {
-               if(err) return result(err, null);
-               result(null, res.rows[0]);
-          }
-     );
+Party.createParty = async (partyProps) => {
+     try {
+          const result = await pool.query(
+               'INSERT INTO parties (name, hqAddress, logoUrl) VALUES ($1, $2, $3) RETURNING *',
+               partyProps
+          );
+          return result.rows[0];
+     } catch (err) {
+          if(err) return err;
+     }     
 };
 
-Party.getParties = (result) => {
-     pool.query('SELECT * FROM parties ORDER BY id ASC',
-          (err, res) => {
-               if(err) return result(null, err);   
-               result(null, res.rows);
-     });
+Party.getParties = async () => {
+     try {
+          const result = await pool.query( 'SELECT * FROM parties ORDER BY id ASC' );
+          return result.rows;
+
+     } catch (err) {
+          if(err) return err;
+     }     
 };
 
-Party.getPartyById = (id, result) => {
-     pool.query(
-          'SELECT * FROM parties WHERE id = $1',
-          [id],
-          (err, res) => {
-          if(err) return result(err, null);
-          result(null, res.rows);
-     });
+Party.getPartyById = async (id) => {
+     try {
+          const result = await pool.query(
+               'SELECT * FROM parties WHERE id = $1',
+               [id]
+          );
+          return result.rows[0];
+
+     } catch (err) {
+          if(err) return err;
+     }     
 };
 
-Party.updatePartyById = (id, party, result) => {
-     
-     pool.query(
-          'UPDATE parties SET name = $1, hqaddress = $2, logoUrl = $3 WHERE id = $4 RETURNING *',
-           party.getProps().concat([id]),
-          (err, res) => {
-               if(err) return result(err, null);
-               result(null, res.rows);
-          }
-     );
-}
+Party.updatePartyById = async (id, party) => {
+     try {
+          const result = await pool.query(
+               'UPDATE parties SET name = $1, hqaddress = $2, logoUrl = $3 WHERE id = $4 RETURNING *',
+                party.getProps().concat([id])
+          );
+          return result.rows[0];
 
-Party.deleteParty = (id, result) => {
-     pool.query(
-          'DELETE FROM parties WHERE id = $1 RETURNING*',
-          [id],
-          (err, res) => {
-          if(err) return result(err, null);
-          result(null, res.rows);
-          }
-     );
-}
+     } catch (err) {
+          if(err) return err;
+     }    
+};
+
+Party.deleteParty =  async (id) => {
+     try {
+          const result = await pool.query(
+               'DELETE FROM parties WHERE id = $1 RETURNING*',
+               [id]
+          );
+          return result.rows[0];
+
+     } catch (err) {
+          if(err) return err;
+     }
+};
 
 module.exports = Party;
